@@ -6,7 +6,7 @@
 
  import "./src/assets/css/main.css";
  import Footer from "./src/components/Footer/Footer";
-import Navbar from "./src/components/Navbar/Navbar";
+ import Navbar from "./src/components/Navbar/Navbar";
  
 
  function App() {
@@ -15,8 +15,8 @@ import Navbar from "./src/components/Navbar/Navbar";
       <Navbar />
       <Routes>
         <Route path='/' element={<Home />}/>
-        <Route path='/signin' element={<Signin />}/>
-        <Route path='/user' element={<User />}/>
+        <Route path='/Signin' element={<Signin />}/>
+        <Route path='/User' element={<User />}/>
       </Routes>
       <Footer />
     </div>
