@@ -4,7 +4,6 @@
  import Signin from "./src/Routes/Signin/Signin";
  import User from "./src/Routes/User/User";
 
- import "./src/assets/css/main.css";
  import Footer from "./src/components/Footer/Footer";
  import Navbar from "./src/components/Navbar/Navbar";
  
