@@ -1,6 +1,6 @@
 import React from 'react';
-import iconsData from '../../data/db.json';
-import "./Features.css"
+import iconsData from './data.json';
+import './Features.css'
 
 export default function Features() {
     const iconsDataArray = iconsData
