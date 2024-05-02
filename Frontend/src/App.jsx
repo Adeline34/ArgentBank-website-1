@@ -1,11 +1,11 @@
- import {Routes, Route} from "react-router-dom";
- import Home from "./src/Routes/Home/Home";
+ import { Routes, Route } from "react-router-dom";
+ import Home from "./Routes/Home/Home";
  import React from 'react';
- import Signin from "./src/Routes/Signin/Signin";
- import User from "./src/Routes/User/User";
+ import Signin from "./Routes/Signin/Signin";
+ import User from "./Routes/User/User";
 
- import Footer from "./src/components/Footer/Footer";
- import Navbar from "./src/components/Navbar/Navbar";
+ import Footer from "./components/Footer/Footer";
+ import Navbar from "./components/Navbar/Navbar";
  
 
  function App() {

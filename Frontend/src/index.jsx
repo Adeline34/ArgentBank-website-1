@@ -1,19 +1,19 @@
 import React from "react";
 import App from "./App";
 import { createRoot } from "react-dom/client"; // Importez createRoot depuis react-dom/client
-import "./src/assets/css/main.css";
+import "./assets/css/main.css";
 
 // redux
 import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
-import rootReducer from "./src/reducers";
 import { BrowserRouter } from "react-router-dom";
-import { getUsers } from "./src/actions/users.action";
+import { configureStore } from "@reduxjs/toolkit";
+import rootReducer from "./reducers"
+import { getUsers } from "./actions/users.action";
 
 const store = configureStore({
   reducer: rootReducer,
-  devTools:true,
-})
+  devtools: true,
+});
 
 store.dispatch(getUsers());
 

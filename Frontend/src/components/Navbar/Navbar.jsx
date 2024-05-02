@@ -1,9 +1,10 @@
 import React from 'react';
 import "./Navbar.css";
 import Logo from "../../assets/img/argentBankLogo.webp";
-import { NavLink } from "react-router-dom"
+import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
+
   return (
     <nav className="main-nav">
     <a className="main-nav-logo" href="./index.html">

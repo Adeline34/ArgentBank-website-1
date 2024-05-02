@@ -1,13 +1,18 @@
 import React from 'react';
 import './User.css';
 import accountUser from './data.json';
+import { useSelector } from "react-redux";
 
 export default function User() {
+  
+  const user = useSelector((state) => state.usersReducer);
+
   const accounts = accountUser;
   return (
     <main className="main bg-dark">
-      <div class="header">
-      <button class="edit-button">Edit Name</button>
+      <div className="header">
+      <h1>Welcome back<br /> {user.firstName} !</h1>
+      <button className="edit-button">Edit Name</button>
       </div>
       <h2 className="sr-only">Accounts</h2>
       {accounts.map((account, index) => (
