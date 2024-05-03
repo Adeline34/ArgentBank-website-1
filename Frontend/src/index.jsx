@@ -8,14 +8,14 @@ import { Provider } from "react-redux";
 import { BrowserRouter } from "react-router-dom";
 import { configureStore } from "@reduxjs/toolkit";
 import rootReducer from "./reducers"
-import { getUsers } from "./actions/users.action";
+import { getUsersLogin } from "./actions/users.action";
 
 const store = configureStore({
   reducer: rootReducer,
   devtools: true,
 });
 
-store.dispatch(getUsers());
+store.dispatch(getUsersLogin());
 
 const root = createRoot(document.getElementById("root"));
 root.render(
