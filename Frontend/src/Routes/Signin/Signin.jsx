@@ -1,43 +1,40 @@
 import React, { useState } from 'react';
 import "./Signin.css";
-import { getUsersLogin } from '../../actions/users.action';
-import { useNavigate } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch, useSelector } from 'react-redux';
+import { signin } from './signinThunk';
+import { signinFailure } from '../../redux';
 
 export default function Signin() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
  
   const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const { loading, error } = useSelector(state => state.signin);
 
-  const user = useSelector((state) => state.usersReducer);
-
-  const onSubmit = async (e) => {
+  const handleSubmit = e => {
     e.preventDefault();
-    dispatch(getUsersLogin({email, password}));
-    navigate("/User");
-  }
+    dispatch(signin(email, password));
+  };
 
   return (
     <main className="main bg-dark">
       <section className="sign-in-content">
         <i className="fa fa-user-circle sign-in-icon"></i>
         <h1>Sign In</h1>
-        <form onSubmit={onSubmit}>      
+        <form onSubmit={handleSubmit}>      
           <div className="input-wrapper">
             <label htmlFor="email">Email</label>
-            <input type="text" id="username" value={email} onChange={(e) => setEmail(e.target.value)} autoComplete="username"/>
+            <input type="text" id="email" value={email} onChange={e => setEmail(e.target.value)} />
           </div>
           <div className="input-wrapper">
             <label htmlFor="password">Password</label>
-            <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} autoComplete="current-password"/>
+            <input type="password" id="password" value={password} onChange={e => setPassword(e.target.value)}/>
             </div>
           <div className="input-remember">
             <input type="checkbox" id="remember-me" /><label htmlFor="remember-me">Remember me</label>
           </div>
-          <button className="sign-in-button">Sign In</button>
-          {} 
+          <button type="submit" className="sign-in-button" disabled={loading}>Sign In</button>
+          {error && <div>Error: {error}</div>}
         </form>
       </section>
     </main>
