@@ -2,18 +2,26 @@ import React, { useState } from 'react';
 import "./Signin.css";
 import { useDispatch, useSelector } from 'react-redux';
 import { signin } from './signinThunk';
-import { signinFailure } from '../../redux';
+import { useNavigate } from 'react-router-dom';
 
 export default function Signin() {
  
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { loading, error } = useSelector(state => state.signin);
+  const { loading, error, user } = useSelector(state => state.signin);
 
-  const handleSubmit = e => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    dispatch(signin(email, password));
+    dispatch(signin(email, password))
+      .then((response) => {
+        if (response.payload && response.payload.token) {
+          navigate("/User");
+        } else {
+          ('erreur')
+        }
+      });
   };
 
   return (

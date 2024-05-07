@@ -10,9 +10,19 @@ export const signin = (email, password) => async dispatch => {
             },
             body: JSON.stringify({ email, password }),
         });
-        const data = await response.json();
-        dispatch(signinSuccess(data.user));
+        if (response.ok) {
+            const data = await response.json();
+            // Stocker le token dans le local storage
+            localStorage.setItem('token', data.token);
+            dispatch(signinSuccess(data.token));
+            return { payload: { token: data.token } }; // Return token in payload
+        } else {
+            const error = await response.text();
+            dispatch(signinFailure(error));
+            return { error }; // Return error
+        }
     } catch (error) {
         dispatch(signinFailure(error.message));
+        return { error: error.message }; // Return error
     }
 };

@@ -16,6 +16,7 @@ export const signinSlice = createSlice({
         signinSuccess: (state, action) => {
             state.loading = false;
             state.user = action.payload;
+            state.error = null;
         },
         signinFailure: (state, action) => {
             state.loading = false;
