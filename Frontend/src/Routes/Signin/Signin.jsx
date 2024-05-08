@@ -7,23 +7,21 @@ import { useNavigate } from 'react-router-dom';
 export default function Signin() {
  
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const { loading, error, user } = useSelector(state => state.signin);
+  const { loading, error } = useSelector(state => state.signin);
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(signin(email, password))
-      .then((response) => {
-        if (response.payload && response.payload.token) {
-          navigate("/User");
-        } else {
-          ('erreur')
-        }
-      });
+    dispatch(signin(email, password)).then((result) => {
+      if (result.success) {
+        // Redirection vers la page d'accueil en cas de succès de la connexion
+        navigate('/User');
+      }
+    });
   };
-
+  
   return (
     <main className="main bg-dark">
       <section className="sign-in-content">
