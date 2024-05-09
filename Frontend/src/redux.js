@@ -36,10 +36,6 @@ const userSlice = createSlice({
         error: null,
     },
     reducers: {
-        usersRequest: (state) => {
-            state.loading = true;
-            state.error = null;
-        },
         usersSuccess: (state, action) => {
             state.loading = false;
             state.data = action.payload;
