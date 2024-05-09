@@ -2,10 +2,10 @@ import { configureStore, createSlice } from "@reduxjs/toolkit";
 
 export const signinSlice = createSlice({
     name: 'signin',
-    initialState:{
-       user: null,
-       loading: false,
-       error: null,
+    initialState: {
+        user: null,
+        loading: false,
+        error: null,
     },
 
     reducers: {
@@ -22,14 +22,42 @@ export const signinSlice = createSlice({
             state.loading = false;
             state.error = action.payload;
         },
+        storeUserProfile: (state, action) => {
+            state.user = action.payload;
+        },
     },
 });
 
-export const { signinRequest, signinSuccess, signinFailure } = signinSlice.actions;
+const userSlice = createSlice({
+    name: 'user',
+    initialState: {
+        data: null,
+        loading: false,
+        error: null,
+    },
+    reducers: {
+        usersRequest: (state) => {
+            state.loading = true;
+            state.error = null;
+        },
+        usersSuccess: (state, action) => {
+            state.loading = false;
+            state.data = action.payload;
+            state.error = null;
+        },
+        usersFailure: (state, action) => {
+            state.loading = false;
+            state.error = action.payload;
+        },
+    },
+});
 
+export const { signinRequest, signinSuccess, signinFailure, storeUserProfile } = signinSlice.actions;
+export const { usersRequest, usersSuccess, usersFailure } = userSlice.actions;
 
 export const store = configureStore({
     reducer: {
-        signin: signinSlice.reducer 
+        signin: signinSlice.reducer,
+        users: userSlice.reducer,
     }
 })

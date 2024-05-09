@@ -16,7 +16,6 @@ export default function Signin() {
     e.preventDefault();
     dispatch(signin(email, password)).then((result) => {
       if (result.success) {
-        // Redirection vers la page d'accueil en cas de succès de la connexion
         navigate('/User');
       }
     });
