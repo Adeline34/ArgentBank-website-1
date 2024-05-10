@@ -93,6 +93,11 @@
     margin: 0 10px;
   }
 
+  .input{
+    background-color: rgb(180, 174, 174);
+    color: #333
+  }
+
 
 @media (min-width: 720px) {
     .account {

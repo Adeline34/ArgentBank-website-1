@@ -26,22 +26,24 @@ const EditUserInfoForm = ({ initialUsername, initialFirstName, initialLastName, 
         </div>
         <div>
           <label htmlFor="firstName">First name:</label>
-          <input 
+          <input className='input' 
             type="text" 
             id="firstName"
             value={firstName} 
             onChange={(e) => setFirstName(e.target.value)} 
             placeholder="First name" 
+            readOnly
           />
         </div>
         <div>
           <label htmlFor="lastName">Last name:</label>
-          <input 
+          <input className='input'
             type="text" 
             id="lastName"
             value={lastName} 
             onChange={(e) => setLastName(e.target.value)} 
             placeholder="Last name" 
+            readOnly
           />
         </div>
       </div>
