@@ -1,6 +1,7 @@
 import { signinRequest, signinSuccess, signinFailure } from '../../redux.js';
 import { usersSuccess, usersFailure } from '../../redux.js';
 
+//Connecter users
 export const signin = (email, password) => async (dispatch) => {
   dispatch(signinRequest());
   try {
@@ -31,7 +32,7 @@ export const signin = (email, password) => async (dispatch) => {
 
 
 
-
+//Récupérer users
 export const users = () => async (dispatch) => {
   try {
     const token = sessionStorage.getItem('token');
@@ -44,7 +45,6 @@ export const users = () => async (dispatch) => {
       headers: {
         Authorization: `Bearer ${token}`,
         'Content-type': 'application/json',
-        
       },
     });
 
@@ -62,3 +62,36 @@ export const users = () => async (dispatch) => {
     return { success: false, error: error.message };
   }
 };
+
+//Edit name 
+export const Editusername = () => async (dispatch) => {
+  try {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      return;
+    }
+
+    const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+      method: 'PUT',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+      },
+      body: JSON.stringify({ username }),
+    });
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(usersSuccess(data.body));
+      return { success: true, data:data.body };
+    } else {
+      const error = await response.text();
+      dispatch(usersFailure(error));
+      return { success: false, error };
+    }
+  } catch (error) {
+    dispatch(usersFailure(error.message));
+    return { success: false, error: error.message };
+  }
+};
+
+ 

@@ -9,11 +9,7 @@ export default function User() {
   const [isEditing, setIsEditing] = useState(false);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(users());
-  }, [dispatch]);
-  
-  const user = useSelector(state => state.users.data);
+   const user = useSelector(state => state.users.data);
   const usersUsername = user ? `${user.firstName} ${user.lastName}` : "";
 
   const accounts = accountUser;
@@ -23,9 +19,8 @@ export default function User() {
   };
 
   const handleSaveUserInfo = (userInfo) => {
-    // Dispatch d'une action pour enregistrer les nouvelles informations de l'utilisateur
-    console.log(userInfo); // À remplacer par la logique d'envoi des données au serveur
-    setIsEditing(false); // Cacher le formulaire après avoir enregistré
+    console.log(userInfo); 
+    setIsEditing(false); 
   };
 
   return (

@@ -1,3 +1,4 @@
+// EditUserInfoForm.jsx
 import React, { useState } from 'react';
 
 const EditUserInfoForm = ({ initialUsername, initialFirstName, initialLastName, onSubmit }) => {
@@ -49,7 +50,7 @@ const EditUserInfoForm = ({ initialUsername, initialFirstName, initialLastName, 
       </div>
       <div className="buttons-container">
         <button className="transaction-button" type="submit">Save</button>
-        <button className="transaction-button" type="button" onClick={() => setIsEditing(false)}>Cancel</button>
+        <button className="transaction-button" type="submit">Cancel</button>
       </div>
     </form>
   );
