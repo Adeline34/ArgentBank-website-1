@@ -14,10 +14,10 @@ export const signin = (email, password) => async (dispatch) => {
 
     if (response.ok) {
       const data = await response.json();
-      sessionStorage.setItem('token', data.token);
-      dispatch(signinSuccess(data.token));
+      sessionStorage.setItem('token', data.body.token);
+      dispatch(signinSuccess(data.body.token));
       dispatch(users());
-      return { success: true, token: data.token };
+      return { success: true, token: data.body.token };
     } else {
       const error = await response.text();
       dispatch(signinFailure(error));
@@ -32,36 +32,33 @@ export const signin = (email, password) => async (dispatch) => {
 
 
 
-export const users = () => {
-  return async (dispatch) => {
-    try {
-      const token = sessionStorage.getItem('token');
-      // Récupérer le token du local storage
-      if (!token) {
-        return;
-      }
-
-      const response = await fetch('http://localhost:3001/api/v1/user/profile', {
-        method: 'POST',
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-type': 'application/json',
-          // Ajouter le token dans l'en-tête Authorization
-        },
-      });
-
-      if (response.ok) {
-        const data = await response.json();
-        dispatch(usersSuccess(data)); // Dispatch de l'action usersSuccess avec les données du profil utilisateur
-        return { success: true, data };
-      } else {
-        const error = await response.text();
-        dispatch(usersFailure(error));
-        return { success: false, error };
-      }
-    } catch (error) {
-      dispatch(usersFailure(error.message));
-      return { success: false, error: error.message };
+export const users = () => async (dispatch) => {
+  try {
+    const token = sessionStorage.getItem('token');
+    if (!token) {
+      return;
     }
-  };
-}
+
+    const response = await fetch("http://localhost:3001/api/v1/user/profile", {
+      method: 'POST',
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-type': 'application/json',
+        
+      },
+    });
+
+    if (response.ok) {
+      const data = await response.json();
+      dispatch(usersSuccess(data.body));
+      return { success: true, data:data.body };
+    } else {
+      const error = await response.text();
+      dispatch(usersFailure(error));
+      return { success: false, error };
+    }
+  } catch (error) {
+    dispatch(usersFailure(error.message));
+    return { success: false, error: error.message };
+  }
+};

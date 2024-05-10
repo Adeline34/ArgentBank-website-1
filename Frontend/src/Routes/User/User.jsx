@@ -1,28 +1,25 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import './User.css';
 import accountUser from './data.json';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { users } from '../Signin/signinThunk';
 
 export default function User() {
-  
-  const userToken = useSelector(state => state.users); // Récupérer le token de connexion depuis le store
-  const [user, setUser] = useState(false);
+  const dispatch = useDispatch();
 
-  const handleUserFetch = () => {
-   setUser(true);
-  };
-
-  const usersUsername = users
-  ? `${users.firstName} ${users.lastName}`
-  : "";
+  useEffect(() => {
+    dispatch(users());
+  }, [dispatch]);
   
+  const user = useSelector(state => state.users.data);
+  const usersUsername = user ? `${user.firstName} ${user.lastName}` : "";
+
   const accounts = accountUser;
   return (
     <main className="main bg-dark">
       <div className="header">
         <h1>Welcome back<br /> {usersUsername} !</h1>
-        <button className="edit-button" onClick={{handleUserFetch}}>Edit Name</button>
+        <button className="edit-button" > Edit Name</button>
       </div>
       <h2 className="sr-only">Accounts</h2>
       {accounts.map((account, index) => (

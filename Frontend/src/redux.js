@@ -49,7 +49,7 @@ const userSlice = createSlice({
 });
 
 export const { signinRequest, signinSuccess, signinFailure, storeUserProfile } = signinSlice.actions;
-export const { usersRequest, usersSuccess, usersFailure } = userSlice.actions;
+export const { usersSuccess, usersFailure } = userSlice.actions;
 
 export const store = configureStore({
     reducer: {
