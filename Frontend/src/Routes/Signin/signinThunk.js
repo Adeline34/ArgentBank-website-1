@@ -59,7 +59,7 @@ export const userProfile = () => async (dispatch) => {
   }
 };
 
-export const editUsername = (newUsername) => async (dispatch) => {
+export const editUserName = (newUserName) => async (dispatch) => {
   try {
     const token = sessionStorage.getItem('token');
     if (!token) {
@@ -72,7 +72,7 @@ export const editUsername = (newUsername) => async (dispatch) => {
         Authorization: `Bearer ${token}`,
         'Content-type': 'application/json',
       },
-      body: JSON.stringify({ username: newUsername }),
+      body: JSON.stringify({ userName: newUserName }),
     });
     if (response.ok) {
       const data = await response.json();

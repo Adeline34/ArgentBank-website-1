@@ -40,7 +40,7 @@ export default function Navbar() {
       <nav>
         <NavLink to="/User" className="main-nav-item">
           <i className="fa-solid fa-circle-user"></i>
-          {user ? user.newUsername : "Loading..."}
+          {user ? user.userName : "Loading..."}
         </NavLink>
         <NavLink to="/" onClick={handleLogout} className="main-nav-item">
           <i className="fa fa-sign-out"></i>

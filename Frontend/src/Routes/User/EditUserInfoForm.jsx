@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { editUsername, userProfile } from '../Signin/signinThunk'; 
+import { editUserName, userProfile } from '../Signin/signinThunk'; 
 
 const EditUserInfoForm = ({ onClose }) => {
   const user = useSelector((state) => state.signin.user);
-  const [newUsername, setNewUsername] = useState(user.username); 
+  const [newUserName, setNewUserName] = useState(user.userName); 
 
   const dispatch = useDispatch();
 
-  const handleEditUsername = async () => {
+  const handleEditUserName = async () => {
     try {
-      await dispatch(editUsername(newUsername)); 
+      await dispatch(editUserName(newUserName)); 
       await dispatch(userProfile()); 
       onClose();
     } catch (error) {
@@ -19,7 +19,8 @@ const EditUserInfoForm = ({ onClose }) => {
   };
 
   const handleCancel = () => {
-    setNewUsername(user.username);
+    setNewUserName(user.userName);
+    onClose();
   };
 
   return (
@@ -27,12 +28,12 @@ const EditUserInfoForm = ({ onClose }) => {
       <h2>Edit user info</h2>
       <div>
         <div>
-          <label htmlFor="username">Username:</label>
+          <label htmlFor="userName">Username:</label>
           <input 
             type="text" 
-            id="username"
-            value={newUsername} 
-            onChange={(e) => setNewUsername(e.target.value)} 
+            id="userName"
+            value={user.newUserName} 
+            onChange={(e) => setNewUserName(e.target.value)} 
             placeholder="Username" 
           />
         </div>
@@ -60,7 +61,7 @@ const EditUserInfoForm = ({ onClose }) => {
       </div>
       </div>
       <div className="buttons-container">
-        <button className="transaction-button" type="button" onClick={handleEditUsername}>Save</button>
+        <button className="transaction-button" type="button" onClick={handleEditUserName}>Save</button>
         <button className="transaction-button" type="button" onClick={handleCancel}>Cancel</button>
       </div>
     </form>
