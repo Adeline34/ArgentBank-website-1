@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import "./Navbar.css";
 import Logo from "../../assets/img/argentBankLogo.webp";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogout } from '../../redux';
-import { userProfile } from '../../Routes/Signin/signinThunk';
+
 
 
 export default function Navbar() {
@@ -20,10 +20,6 @@ export default function Navbar() {
     dispatch(userLogout());
     navigate("/");
   };
-
-  useEffect(() => {
-    dispatch(userProfile());
-  },[dispatch]);
 
   if (token) {
   return (

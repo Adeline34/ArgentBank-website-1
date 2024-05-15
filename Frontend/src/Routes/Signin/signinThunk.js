@@ -15,7 +15,7 @@ export const signin = (email, password) => async (dispatch) => {
       const data = await response.json();
       sessionStorage.setItem('token', data.body.token);
       dispatch(userSuccess(data.body.token));
-      dispatch(signin());
+      dispatch(userProfile());
       return { success: true, token: data.body.token };
     } else {
       const error = await response.text();
