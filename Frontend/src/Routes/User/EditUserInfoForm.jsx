@@ -1,35 +1,29 @@
-import React from 'react';
-import { useDispatch } from 'react-redux';
-import { editUsername, userProfile } from '../Signin/signinThunk';
+import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { editUsername, userProfile } from '../Signin/signinThunk'; 
 
 const EditUserInfoForm = ({ onClose }) => {
   const user = useSelector((state) => state.signin.user);
-  const [ newUsername, setUsername] = useState(user.newUsername);
+  const [newUsername, setNewUsername] = useState(user.username); 
+
   const dispatch = useDispatch();
 
-  const handleEditusername = async () => {
+  const handleEditUsername = async () => {
     try {
-      dispatch ( editUsername(newUsername));
-      dispatch (userProfile());
+      await dispatch(editUsername(newUsername)); 
+      await dispatch(userProfile()); 
       onClose();
     } catch (error) {
-      console.error('error');
+      console.error('Error editing username:', error);
     }
   };
 
   const handleCancel = () => {
-    setUsername(user.newUsername);
-    onClose();
-  }
-
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   onSubmit({ username, firstName, lastName });
-  // };onSubmit={handleSubmit}
-
+    setNewUsername(user.username);
+  };
 
   return (
-    <form  className="form-container">
+    <form className="form-container">
       <h2>Edit user info</h2>
       <div>
         <div>
@@ -38,7 +32,7 @@ const EditUserInfoForm = ({ onClose }) => {
             type="text" 
             id="username"
             value={newUsername} 
-            onChange={(e) => setUsername(e.target.value)} 
+            onChange={(e) => setNewUsername(e.target.value)} 
             placeholder="Username" 
           />
         </div>
@@ -63,10 +57,10 @@ const EditUserInfoForm = ({ onClose }) => {
             placeholder="Last name" 
             disabled
           />
-        </div>
+      </div>
       </div>
       <div className="buttons-container">
-        <button className="transaction-button" type="submit" onClick={handleEditusername}>Save</button>
+        <button className="transaction-button" type="button" onClick={handleEditUsername}>Save</button>
         <button className="transaction-button" type="button" onClick={handleCancel}>Cancel</button>
       </div>
     </form>

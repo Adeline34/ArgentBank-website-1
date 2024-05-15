@@ -72,7 +72,7 @@ export const editUsername = (newUsername) => async (dispatch) => {
         Authorization: `Bearer ${token}`,
         'Content-type': 'application/json',
       },
-      body: JSON.stringify({ newUsername }),
+      body: JSON.stringify({ username: newUsername }),
     });
     if (response.ok) {
       const data = await response.json();

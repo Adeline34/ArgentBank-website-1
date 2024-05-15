@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
 import './User.css';
 import accountUser from './data.json';
-import EditUserInfoForm from './EditUserInfoForm';
+import EditUserInfoForm from './EditUserInfoForm'; 
+
 import { useSelector } from 'react-redux';
 
+
+const accounts = accountUser;
+
 export default function User() {
-  
   const [editing, setEditing] = useState(false);
-  const user = useSelector((state) => state.signin.data);
+  const user = useSelector((state) => state.signin.user);
 
   const handleNameEdit = () => {
     setEditing(true);
   };
 
-  const fullname = user ? `${user.firstName} ${user.lastName}`: "";
-
-  const accounts = accountUser;
+  const fullname = user ? `${user.firstName} ${user.lastName}` : "";
 
   return (
     <main className="main bg-dark">
@@ -24,7 +25,7 @@ export default function User() {
         <button className="edit-button" onClick={handleNameEdit}>Edit Name</button>
         {editing && <EditUserInfoForm onClose={() => setEditing(false)} />}
       </div>
-  );
+
       <h2 className="sr-only">Accounts</h2>
       {accounts.map((account, index) => (
         <section key={index} className="account">
