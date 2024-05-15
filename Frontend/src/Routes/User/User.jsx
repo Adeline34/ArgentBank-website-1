@@ -1,42 +1,30 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import './User.css';
 import accountUser from './data.json';
-import { useSelector, useDispatch } from 'react-redux';
-import { users } from '../Signin/signinThunk';
 import EditUserInfoForm from './EditUserInfoForm';
+import { useSelector } from 'react-redux';
 
 export default function User() {
-  const [isEditing, setIsEditing] = useState(false);
-  const dispatch = useDispatch();
+  
+  const [editing, setEditing] = useState(false);
+  const user = useSelector((state) => state.signin.data);
 
-   const user = useSelector(state => state.users.data);
-  const usersUsername = user ? `${user.firstName} ${user.lastName}` : "";
+  const handleNameEdit = () => {
+    setEditing(true);
+  };
+
+  const fullname = user ? `${user.firstName} ${user.lastName}`: "";
 
   const accounts = accountUser;
-
-  const handleEditButtonClick = () => {
-    setIsEditing(true);
-  };
-
-  const handleSaveUserInfo = (userInfo) => {
-    console.log(userInfo); 
-    setIsEditing(false); 
-  };
 
   return (
     <main className="main bg-dark">
       <div className="header">
-        <h1>Welcome back<br /> {usersUsername} !</h1>
-        {isEditing ? (
-          <EditUserInfoForm 
-            initialFirstName={user.firstName} 
-            initialLastName={user.lastName} 
-            onSubmit={handleSaveUserInfo} 
-          />
-        ) : (
-          <button className="edit-button" onClick={handleEditButtonClick}>Edit Name</button>
-        )}
+        <h1>Welcome back <br /> {fullname} !</h1>
+        <button className="edit-button" onClick={handleNameEdit}>Edit Name</button>
+        {editing && <EditUserInfoForm onClose={() => setEditing(false)} />}
       </div>
+  );
       <h2 className="sr-only">Accounts</h2>
       {accounts.map((account, index) => (
         <section key={index} className="account">

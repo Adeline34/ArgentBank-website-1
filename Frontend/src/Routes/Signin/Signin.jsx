@@ -7,10 +7,11 @@ import { useNavigate } from 'react-router-dom';
 export default function Signin() {
  
   const dispatch = useDispatch();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const { loading, error } = useSelector(state => state.signin);
   const navigate = useNavigate();
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -45,3 +46,4 @@ export default function Signin() {
     </main>
   );
 }
+

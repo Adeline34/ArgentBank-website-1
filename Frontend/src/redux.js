@@ -13,47 +13,38 @@ export const signinSlice = createSlice({
             state.loading = true;
             state.error = null;
         },
-        signinSuccess: (state, action) => {
+        userSuccess: (state, action) => {
             state.loading = false;
             state.user = action.payload;
             state.error = null;
         },
-        signinFailure: (state, action) => {
+        userFailure: (state, action) => {
             state.loading = false;
+            state.user = null;
             state.error = action.payload;
         },
-        storeUserProfile: (state, action) => {
+        userLogout: (state) => {
+            state.loading = false;
+            state.user = null;
+            state.error = null;
+            sessionStorage.removeItem("token");
+        },
+        userError: (state, action) => {
+            state.error = action.payload;
+        },
+        applyUserProfile: (state, action) => {
             state.user = action.payload;
         },
     },
 });
 
-const userSlice = createSlice({
-    name: 'user',
-    initialState: {
-        data: null,
-        loading: false,
-        error: null,
-    },
-    reducers: {
-        usersSuccess: (state, action) => {
-            state.loading = false;
-            state.data = action.payload;
-            state.error = null;
-        },
-        usersFailure: (state, action) => {
-            state.loading = false;
-            state.error = action.payload;
-        },
-    },
-});
 
-export const { signinRequest, signinSuccess, signinFailure, storeUserProfile } = signinSlice.actions;
-export const { usersSuccess, usersFailure } = userSlice.actions;
+
+
+export const { userSuccess, userFailure, userLogout, applyUserProfile, userError, signinRequest } = signinSlice.actions;
 
 export const store = configureStore({
     reducer: {
         signin: signinSlice.reducer,
-        users: userSlice.reducer,
     }
 })

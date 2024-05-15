@@ -1,18 +1,35 @@
-// EditUserInfoForm.jsx
-import React, { useState } from 'react';
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import { editUsername, userProfile } from '../Signin/signinThunk';
 
-const EditUserInfoForm = ({ initialUsername, initialFirstName, initialLastName, onSubmit }) => {
-  const [username, setUsername] = useState(initialUsername);
-  const [firstName, setFirstName] = useState(initialFirstName);
-  const [lastName, setLastName] = useState(initialLastName);
+const EditUserInfoForm = ({ onClose }) => {
+  const user = useSelector((state) => state.signin.user);
+  const [ newUsername, setUsername] = useState(user.newUsername);
+  const dispatch = useDispatch();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    onSubmit({ username, firstName, lastName });
+  const handleEditusername = async () => {
+    try {
+      dispatch ( editUsername(newUsername));
+      dispatch (userProfile());
+      onClose();
+    } catch (error) {
+      console.error('error');
+    }
   };
 
+  const handleCancel = () => {
+    setUsername(user.newUsername);
+    onClose();
+  }
+
+  // const handleSubmit = (e) => {
+  //   e.preventDefault();
+  //   onSubmit({ username, firstName, lastName });
+  // };onSubmit={handleSubmit}
+
+
   return (
-    <form onSubmit={handleSubmit} className="form-container">
+    <form  className="form-container">
       <h2>Edit user info</h2>
       <div>
         <div>
@@ -20,7 +37,7 @@ const EditUserInfoForm = ({ initialUsername, initialFirstName, initialLastName, 
           <input 
             type="text" 
             id="username"
-            value={username} 
+            value={newUsername} 
             onChange={(e) => setUsername(e.target.value)} 
             placeholder="Username" 
           />
@@ -30,10 +47,10 @@ const EditUserInfoForm = ({ initialUsername, initialFirstName, initialLastName, 
           <input className='input' 
             type="text" 
             id="firstName"
-            value={firstName} 
+            value={user.firstName} 
             onChange={(e) => setFirstName(e.target.value)} 
             placeholder="First name" 
-            readOnly
+            disabled
           />
         </div>
         <div>
@@ -41,16 +58,16 @@ const EditUserInfoForm = ({ initialUsername, initialFirstName, initialLastName, 
           <input className='input'
             type="text" 
             id="lastName"
-            value={lastName} 
+            value={user.lastName} 
             onChange={(e) => setLastName(e.target.value)} 
             placeholder="Last name" 
-            readOnly
+            disabled
           />
         </div>
       </div>
       <div className="buttons-container">
-        <button className="transaction-button" type="submit">Save</button>
-        <button className="transaction-button" type="submit">Cancel</button>
+        <button className="transaction-button" type="submit" onClick={handleEditusername}>Save</button>
+        <button className="transaction-button" type="button" onClick={handleCancel}>Cancel</button>
       </div>
     </form>
   );
