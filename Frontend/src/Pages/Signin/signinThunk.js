@@ -19,7 +19,6 @@ export const signin = (email, password) => async (dispatch) => {
       return { success: true, token: data.body.token };
     } else {
       const error = await response.text();
-      // sessionStorage.removeItem("token");
       dispatch(userFailure(error));
       return { success: false, error };
     }

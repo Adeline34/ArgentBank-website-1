@@ -10,8 +10,8 @@ const EditUserInfoForm = ({ onClose }) => {
 
   const handleEditUserName = async () => {
     try {
-      await dispatch(editUserName(newUserName)); 
-      await dispatch(userProfile()); 
+      dispatch(editUserName(newUserName)); 
+      dispatch(userProfile()); 
       onClose();
     } catch (error) {
       console.error('Error editing username:', error);

@@ -5,8 +5,6 @@ import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { userLogout } from '../../redux';
 
-
-
 export default function Navbar() {
   const user = useSelector((state) => state.signin.user);
 
@@ -36,7 +34,7 @@ export default function Navbar() {
       <nav>
         <NavLink to="/User" className="main-nav-item">
           <i className="fa-solid fa-circle-user"></i>
-          {user ? user.userName : "Loading..."}
+          {user ? user.userName : ""}
         </NavLink>
         <NavLink to="/" onClick={handleLogout} className="main-nav-item">
           <i className="fa fa-sign-out"></i>

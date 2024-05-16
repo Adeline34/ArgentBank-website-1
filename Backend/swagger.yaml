@@ -101,6 +101,117 @@ paths:
           description: Invalid Fields
         '500':
           description: Internal Server Error
+  /user/account:
+    post:
+      security:
+      - Bearer: []
+      tags:
+      - User Module
+      summary: User account API
+      description: API to consult your account month by month
+      #produces:
+       # - application/json
+      responses:
+        '200':
+          description: User account retrieved successfully
+          schema:
+           $ref: '#/definitions/UserAccount'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /user/transactions:
+    get:
+      security:
+       - Bearer: []
+      tags:
+      - User Module
+      summary:  Get User transactions
+      description: Retrieve all transactions for the current month grouped by account
+      #produces:
+       # - application/json
+      responses:
+        '200':
+          description: User transactions retrieved successfully
+          schema:
+           $ref: '#/definitions/ApiResponse'
+        '400':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+  /user/transactions/{transactionId}:
+    get:
+      security:
+       - Bearer: []
+      tags: 
+       - User Module
+      summary: Get Transaction details
+      description: Retrieve details of a specific transaction
+      parameters:
+       -  in: path
+          name: transactionId
+          required: true
+          description: ID of the transaction to retrieve details for transactionId
+          type: string
+      produces:
+         - application/json
+      responses:
+        '200':
+          description: transaction details retrieved successfully
+          schema: 
+            $ref: '#/definitions/TransactionDetails'
+        '400':
+          description: Transaction not found
+        '500':
+          description: Internal Server Error    
+    patch:
+      security:
+       - Bearer: []
+      tags:
+      - User Module
+      summary: Update Transaction Details
+      description: Update information about a transaction
+      parameters:
+        - in: path
+          name: transactionId
+          description: ID of the transaction to update
+          required: true
+          type: string
+      produces:
+         - application/json
+      responses:
+        '200':
+          description: User account retrieved successfully
+          schema:
+           $ref: '#/definitions/TransactionUpdate'
+        '404':
+          description: Invalid Fields
+        '500':
+          description: Internal Server Error
+    delete:
+      security:
+       - Bearer: []
+      tags: 
+       - User Module
+      summary: Delete Transaction
+      description: Delete a specific transaction
+      parameters:
+        - in: path
+          name: transactionId
+          required: true
+          description: ID of the transaction to delete
+          type: string
+      produces:
+         - application/json
+      responses:
+         '200':
+          description: Transaction deleted successfully
+          schema:
+           $ref: '#/definitions/ApiResponse'
+         '404':
+          description: Transaction not found
+         '500':
+          description: Internal Server Error      
 securityDefinitions:
   Bearer:
     type: apiKey
@@ -156,3 +267,40 @@ definitions:
     properties:
       userName:
         type: string
+  TransactionDetails:
+    type: object
+    properties:
+      transactionId:
+        type: string
+        description: Id transaction
+      amount:
+        type: number
+        description: transaction amount
+      date:
+        type: string
+        format: date-time
+        description: transaction date-time
+      description:
+        type: string
+      accountId:
+        type: string
+        description: Id of the account associated with the transaction
+  TransactionUpdate:
+    type: object
+    properties:
+        description:
+         type: string
+         description: new transaction name 
+  UserAccount: 
+    type: object
+    properties:
+      accountId:
+        type: string
+        description: user account id
+      balance:
+        type: number
+        description: user account balance
+      transactions : 
+        type: array
+        items:
+          $ref: '#/definitions/TransactionDetails'
