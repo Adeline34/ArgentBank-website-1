@@ -3,7 +3,6 @@ import iconsData from './data.json';
 import './Features.css'
 
 export default function Features() {
-    const iconsDataArray = iconsData
   return (
     <section className="features">
       <h2 className="sr-only">Features</h2>
