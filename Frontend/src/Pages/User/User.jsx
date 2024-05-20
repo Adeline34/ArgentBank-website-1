@@ -1,28 +1,31 @@
-import React, { useState } from 'react';
-import './User.css';
-import accountUser from './data.json';
-import EditUserInfoForm from './EditUserInfoForm'; 
+import React, { useState } from "react"
+import "./User.css"
+import accountUser from "./data.json"
+import EditUserInfoForm from "./EditUserInfoForm"
 
-import { useSelector } from 'react-redux';
+import { useSelector } from "react-redux"
 
-
-const accounts = accountUser;
+const accounts = accountUser
 
 export default function User() {
-  const [editing, setEditing] = useState(false);
-  const user = useSelector((state) => state.signin.user);
+  const [editing, setEditing] = useState(false)
+  const user = useSelector(state => state.signin.user)
 
   const handleNameEdit = () => {
-    setEditing(true);
-  };
+    setEditing(true)
+  }
 
-  const fullname = user ? `${user.firstName} ${user.lastName}` : "";
+  const fullname = user ? `${user.firstName} ${user.lastName}` : ""
 
   return (
     <main className="main bg-dark">
       <div className="header">
-        <h1>Welcome back <br /> {fullname} !</h1>
-        <button className="edit-button" onClick={handleNameEdit}>Edit Name</button>
+        <h1>
+          Welcome back <br /> {fullname} !
+        </h1>
+        <button className="edit-button" onClick={handleNameEdit}>
+          Edit Name
+        </button>
         {editing && <EditUserInfoForm onClose={() => setEditing(false)} />}
       </div>
 
@@ -32,7 +35,9 @@ export default function User() {
           <div className="account-content-wrapper">
             <h3 className="account-title">{account["account-title"]}</h3>
             <p className="account-amount">{account["account-amount"]}</p>
-            <p className="account-amount-description">{account["account-amount-description"]}</p>
+            <p className="account-amount-description">
+              {account["account-amount-description"]}
+            </p>
           </div>
           <div className="account-content-wrapper cta">
             <button className="transaction-button">View transactions</button>
@@ -40,5 +45,5 @@ export default function User() {
         </section>
       ))}
     </main>
-  );
+  )
 }

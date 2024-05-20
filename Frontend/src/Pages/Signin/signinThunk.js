@@ -1,89 +1,94 @@
-import { userSuccess, userFailure, userError, signinRequest } from '../../redux.js';
+import {
+  userSuccess,
+  userFailure,
+  userError,
+  signinRequest,
+} from "../../redux.js"
 
-export const signin = (email, password) => async (dispatch) => {
+export const signin = (email, password) => async dispatch => {
   dispatch(signinRequest())
   try {
     const response = await fetch("http://localhost:3001/api/v1/user/login", {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-type': 'application/json',
+        "Content-type": "application/json",
       },
       body: JSON.stringify({ email, password }),
-    });
+    })
 
     if (response.ok) {
-      const data = await response.json();
-      sessionStorage.setItem('token', data.body.token);
-      dispatch(userSuccess(data.body.token));
-      dispatch(userProfile());
-      return { success: true, token: data.body.token };
+      const data = await response.json()
+      sessionStorage.setItem("token", data.body.token)
+      dispatch(userSuccess(data.body.token))
+      dispatch(userProfile())
+      return { success: true, token: data.body.token }
     } else {
-      const error = await response.text();
-      dispatch(userFailure(error));
-      return { success: false, error };
+      const error = await response.text()
+      dispatch(userFailure(error))
+      return { success: false, error }
     }
   } catch (error) {
-    dispatch(userFailure(error.message));
-    return { success: false, error: error.message };
+    dispatch(userFailure(error.message))
+    return { success: false, error: error.message }
   }
-};
+}
 
-export const userProfile = () => async (dispatch) => {
+export const userProfile = () => async dispatch => {
   try {
-    const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem("token")
     if (!token) {
-      return;
+      return
     }
 
     const response = await fetch("http://localhost:3001/api/v1/user/profile", {
-      method: 'POST',
+      method: "POST",
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-type': 'application/json',
+        "Content-type": "application/json",
       },
-    });
+    })
 
     if (response.ok) {
-      const data = await response.json();
-      dispatch(userSuccess(data.body));
-      return { success: true, data: data.body };
+      const data = await response.json()
+      dispatch(userSuccess(data.body))
+      return { success: true, data: data.body }
     } else {
-      const error = await response.text();
-      dispatch(userFailure(error));
-      return { success: false, error };
+      const error = await response.text()
+      dispatch(userFailure(error))
+      return { success: false, error }
     }
   } catch (error) {
-    dispatch(userFailure(error.message));
-    return { success: false, error: error.message };
+    dispatch(userFailure(error.message))
+    return { success: false, error: error.message }
   }
-};
+}
 
-export const editUserName = (newUserName) => async (dispatch) => {
+export const editUserName = newUserName => async dispatch => {
   try {
-    const token = sessionStorage.getItem('token');
+    const token = sessionStorage.getItem("token")
     if (!token) {
-      return;
+      return
     }
 
     const response = await fetch("http://localhost:3001/api/v1/user/profile", {
-      method: 'PUT',
+      method: "PUT",
       headers: {
         Authorization: `Bearer ${token}`,
-        'Content-type': 'application/json',
+        "Content-type": "application/json",
       },
       body: JSON.stringify({ userName: newUserName }),
-    });
+    })
     if (response.ok) {
-      const data = await response.json();
-      dispatch(userSuccess(data.body));
-      return { success: true, data: data.body };
+      const data = await response.json()
+      dispatch(userSuccess(data.body))
+      return { success: true, data: data.body }
     } else {
-      const error = await response.text();
-      dispatch(userFailure(error));
-      return { success: false, error };
+      const error = await response.text()
+      dispatch(userFailure(error))
+      return { success: false, error }
     }
   } catch (error) {
-    dispatch(userError(error.message));
-    return { success: false, error: error.message };
+    dispatch(userError(error.message))
+    return { success: false, error: error.message }
   }
-};
+}

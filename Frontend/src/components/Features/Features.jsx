@@ -1,6 +1,6 @@
-import React from 'react';
-import iconsData from './data.json';
-import './Features.css'
+import React from "react"
+import iconsData from "./data.json"
+import "./Features.css"
 
 export default function Features() {
   return (
@@ -14,5 +14,5 @@ export default function Features() {
         </div>
       ))}
     </section>
-  );
+  )
 }

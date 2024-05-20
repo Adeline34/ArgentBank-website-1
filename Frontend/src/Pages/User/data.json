@@ -1,19 +1,19 @@
 [
-    {
-        "account-title":"Argent Bank Checking (x8349)",
-        "account-amount":"$2,082.79",
-        "account-amount-description":"Available Balance"
-        },
+  {
+    "account-title": "Argent Bank Checking (x8349)",
+    "account-amount": "$2,082.79",
+    "account-amount-description": "Available Balance"
+  },
 
-    {
-        "account-title":"Argent Bank Savings (x6712)",
-        "account-amount":"$10,928.42",
-        "account-amount-description":"Available Balance"
-        },
+  {
+    "account-title": "Argent Bank Savings (x6712)",
+    "account-amount": "$10,928.42",
+    "account-amount-description": "Available Balance"
+  },
 
-    {
-        "account-title":"Argent Bank Credit Card (x8349)",
-        "account-amount":"$184.30",
-        "account-amount-description":"Current Balance"
-        }    
+  {
+    "account-title": "Argent Bank Credit Card (x8349)",
+    "account-amount": "$184.30",
+    "account-amount-description": "Current Balance"
+  }
 ]
