@@ -109,15 +109,13 @@ paths:
         - Bearer: []
       summary: Get User transactions
       description: Retrieve all transactions for the current month grouped by account
-      #produces:
-      # - application/json
+      produces:
+      - application/json
       responses:
         "200":
           description: User transactions retrieved successfully
           schema:
             $ref: "#/definitions/UserTransactions"
-        "400":
-          description: Invalid Fields
         "500":
           description: Internal Server Error
   /user/transactions/{transactionId}:
@@ -141,7 +139,7 @@ paths:
           description: transaction details retrieved successfully
           schema:
             $ref: "#/definitions/TransactionDetails"
-        "400":
+        "404":
           description: Transaction not found
         "500":
           description: Internal Server Error
@@ -162,10 +160,10 @@ paths:
         - application/json
       responses:
         "200":
-          description: User account retrieved successfully
+          description: User account updated successfully
           schema:
             $ref: "#/definitions/TransactionUpdate"
-        "404":
+        "409":
           description: Invalid Fields
         "500":
           description: Internal Server Error
@@ -247,7 +245,7 @@ definitions:
       status:
         type: integer
       transactionId:
-        type: array
+        type: string
         description: Id transaction
       amount:
         type: number
@@ -269,7 +267,7 @@ definitions:
     properties:
       description:
         type: string
-        description: new transaction name
+        description: new transaction description
       note:
         type: string
         description: new transaction note
