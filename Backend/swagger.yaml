@@ -66,10 +66,10 @@ paths:
       summary: User Profile API
       description: API for fetching a user profile
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
-          description: User profile retrieved successully
+          description: User profile retrieved successfully
           schema:
             $ref: "#/definitions/ApiResponse"
         "400":
@@ -94,14 +94,14 @@ paths:
         - application/json
       responses:
         "200":
-          description: User profile retrieved successully
+          description: User profile updated successfully
           schema:
             $ref: "#/definitions/ApiResponse"
         "400":
           description: Invalid Fields
         "500":
           description: Internal Server Error
-  /user/transactions/account/{accountID}:
+  /user/account/{accountID}:
     get:
       tags:
         - Transactions Modules
@@ -109,13 +109,19 @@ paths:
         - Bearer: []
       summary: Get User transactions
       description: Retrieve all transactions for the current month grouped by account
+      parameters: 
+        - in: path
+          name: accountID
+          required: true
+          description: ID of the account to retrieve transactions for
+          type: string
       produces:
-      - application/json
+        - application/json
       responses:
         "200":
           description: User transactions retrieved successfully
           schema:
-            $ref: "#/definitions/UserTransactions"
+            $ref: "#/definitions/AccountTransactions"
         "500":
           description: Internal Server Error
   /user/transactions/{transactionId}:
@@ -130,13 +136,13 @@ paths:
         - in: path
           name: transactionId
           required: true
-          description: ID of the transaction to retrieve details for transactionId
+          description: ID of the transaction to retrieve details for
           type: string
       produces:
         - application/json
       responses:
         "200":
-          description: transaction details retrieved successfully
+          description: Transaction details retrieved successfully
           schema:
             $ref: "#/definitions/TransactionDetails"
         "404":
@@ -151,9 +157,14 @@ paths:
       summary: Update Transaction Details
       description: Update information about a transaction
       parameters:
+        - in: path
+          name: transactionId
+          required: true
+          description: ID of the transaction to update
+          type: string
         - in: body
           name: body
-          description: ID of the transaction to update
+          description: Transaction details to update
           required: true
           schema:
            $ref: "#/definitions/TransactionUpdate"
@@ -161,9 +172,9 @@ paths:
         - application/json
       responses:
         "200":
-          description: User account updated successfully
+          description: Transaction updated successfully
           schema:
-            $ref:  "#/definitions/TransactionUpdateResponse"
+            $ref: "#/definitions/TransactionUpdateResponse"
         "409":
           description: Invalid Fields
         "500":
@@ -176,30 +187,32 @@ securityDefinitions:
     in: header
 definitions:
   User:
+    type: object
     properties:
       email:
         type: string
-        description: user email
+        description: User email
       password:
         type: string
-        description: user password
+        description: User password
       firstName:
         type: string
-        description: user first name
+        description: User first name
       lastName:
         type: string
-        description: user last name
+        description: User last name
       userName:
         type: string
-        description: user public name
+        description: User public name
   Login:
+    type: object
     properties:
       email:
         type: string
-        description: user email
+        description: User email
       password:
         type: string
-        description: user password
+        description: User password
   ApiResponse:
     type: object
     properties:
@@ -224,22 +237,24 @@ definitions:
     properties:
       userName:
         type: string
-  UserTransactions:
-    type: array
+  AccountTransactions:
+    type: object
     properties:
       status:
         type: integer
       body:
-        type: object
-        properties:
-          date: 
-            type: string
-          description:
-            type: string
-          amount:
-            type: number
-          balance: 
-            type: number
+        type: array
+        items:
+          type: object
+          properties:
+            date:
+              type: string
+            description:
+              type: string
+            amount:
+              type: number
+            balance:
+              type: number
   TransactionDetails:
     type: object
     properties:
@@ -247,53 +262,47 @@ definitions:
         type: integer
       transactionId:
         type: string
-        description: Id transaction
+        description: ID of the transaction
       amount:
         type: number
-        description: transaction amount
+        description: Transaction amount
       date:
         type: string
         format: date-time
-        description: transaction date-time
+        description: Transaction date-time
       description:
         type: string
       accountId:
         type: string
-        description: Id of the account associated with the transaction
+        description: ID of the account associated with the transaction
       balance:
         type: number
-        description: trnasaction balance
+        description: Transaction balance
       transactionType:
         type: string
-      note: 
+      note:
         type: string
       category:
         type: string
   TransactionUpdate:
     type: object
     properties:
-      description:
-        type: string
-        description: new transaction description
-      transactionType:
-        type: string
-        description: new transaction type
       note:
         type: string
-        description: new transaction note
-      category: 
+        description: New transaction note
+      category:
         type: string
-        description: new transaction category
+        description: New transaction category
   TransactionUpdateResponse:
     type: object
-    properties: 
+    properties:
       status:
         type: integer
       transactionId:
         type: string
       amount:
         type: number
-      date: 
+      date:
         type: string
         format: date-time
       description:
@@ -304,9 +313,7 @@ definitions:
         type: number
       transactionType:
         type: string
-      note: 
+      note:
         type: string
       category:
         type: string
-      
-
