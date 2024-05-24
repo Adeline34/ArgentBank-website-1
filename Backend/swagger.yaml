@@ -101,7 +101,7 @@ paths:
           description: Invalid Fields
         "500":
           description: Internal Server Error
-  /user/transactions:
+  /user/transactions/account/{accountID}:
     get:
       tags:
         - Transactions Modules
@@ -151,18 +151,19 @@ paths:
       summary: Update Transaction Details
       description: Update information about a transaction
       parameters:
-        - in: path
-          name: transactionId
+        - in: body
+          name: body
           description: ID of the transaction to update
           required: true
-          type: string
+          schema:
+           $ref: "#/definitions/TransactionUpdate"
       produces:
         - application/json
       responses:
         "200":
           description: User account updated successfully
           schema:
-            $ref: "#/definitions/TransactionUpdate"
+            $ref:  "#/definitions/TransactionUpdateResponse"
         "409":
           description: Invalid Fields
         "500":
@@ -224,7 +225,7 @@ definitions:
       userName:
         type: string
   UserTransactions:
-    type: object
+    type: array
     properties:
       status:
         type: integer
@@ -262,16 +263,50 @@ definitions:
       balance:
         type: number
         description: trnasaction balance
+      transactionType:
+        type: string
+      note: 
+        type: string
+      category:
+        type: string
   TransactionUpdate:
     type: object
     properties:
       description:
         type: string
         description: new transaction description
+      transactionType:
+        type: string
+        description: new transaction type
       note:
         type: string
         description: new transaction note
       category: 
         type: string
         description: new transaction category
+  TransactionUpdateResponse:
+    type: object
+    properties: 
+      status:
+        type: integer
+      transactionId:
+        type: string
+      amount:
+        type: number
+      date: 
+        type: string
+        format: date-time
+      description:
+        type: string
+      accountId:
+        type: string
+      balance:
+        type: number
+      transactionType:
+        type: string
+      note: 
+        type: string
+      category:
+        type: string
+      
 
