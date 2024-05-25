@@ -247,14 +247,26 @@ definitions:
         items:
           type: object
           properties:
+            status:
+              type: integer
+            transactionId:
+              type: string
+            amount:
+              type: number
             date:
               type: string
             description:
               type: string
-            amount:
-              type: number
+            accountId:
+              type: string
             balance:
               type: number
+            transactionType:
+              type: string
+            note:
+              type: string
+            category:
+              type: string
   TransactionDetails:
     type: object
     properties:
